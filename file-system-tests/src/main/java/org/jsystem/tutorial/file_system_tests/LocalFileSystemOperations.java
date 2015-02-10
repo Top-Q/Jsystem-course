@@ -20,6 +20,7 @@ import jsystem.framework.scenario.UseProvider;
 import jsystem.framework.scenario.ValidationError;
 import junit.framework.SystemTestCase4;
 
+import org.jsystem.file_system_so.FileAttributes;
 import org.junit.Test;
 
 /**
