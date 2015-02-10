@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><sut validators="">
+    <machine>
+        <class>org.jsystem.file_system_so.Machine</class>
+        <fileSystem>
+            <class>org.jsystem.file_system_so.LinuxRemoteFileSystem</class>
+        </fileSystem>
+    </machine>
+</sut>
