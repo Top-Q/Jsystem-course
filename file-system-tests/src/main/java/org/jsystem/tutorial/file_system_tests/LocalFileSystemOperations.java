@@ -115,33 +115,6 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 	@TestProperties(name = "Local - Delete file or directory '${file}'", paramsInclude = { "file", "fileOrFolder",
 			"emptyBeforeDeleting" })
 	public void deleteFileOrDirectory() throws IOException {
-		report.step("About to delete file " + file);
-		if (null == file) {
-			report.report("File can't be null");
-			return;
-		}
-		if (!file.exists()) {
-			report.report("Specified file is not exist");
-			return;
-
-		}
-		switch (fileOrFolder) {
-		case FILE:
-			if (file.isDirectory()) {
-				report.report("Specified file is not directory");
-				return;
-			}
-
-			break;
-		case FOLDER:
-			if (file.isFile()) {
-				report.report("Specified file is not a file");
-				return;
-			}
-			break;
-
-		}
-		Files.delete(Paths.get(file.getAbsolutePath()));
 
 	}
 
