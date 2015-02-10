@@ -8,10 +8,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
+import jsystem.framework.scenario.Parameter;
 import jsystem.framework.scenario.UseProvider;
+import jsystem.framework.scenario.ValidationError;
 import junit.framework.SystemTestCase4;
 
 import org.junit.Test;
@@ -117,6 +122,39 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 	public void deleteFileOrDirectory() throws IOException {
 
 	}
+	
+	@Override
+	public void handleUIEvent(HashMap<String, Parameter> map, String methodName) throws Exception {
+		if (methodName.equals("deleteFileOrDirectory")) {
+			if (map.get("FileOrFolder").getValue() != null
+					&& map.get("FileOrFolder").getValue().toString().equals("FOLDER")) {
+				map.get("EmptyBeforeDeleting").setVisible(true);
+			} else {
+				map.get("EmptyBeforeDeleting").setVisible(false);
+			}
+		}
+	}
+	
+	@Override
+	public ValidationError[] validate(HashMap<String, Parameter> map, String methodName) throws Exception {
+		List<ValidationError> veList = new ArrayList<ValidationError>();
+		if (methodName.equals("copyFile")) {
+			if (map.get("SourceFile").getValue() == null || map.get("SourceFile").getValue().toString().isEmpty()) {
+				ValidationError ve = new ValidationError();
+				ve.setTitle("Source file is not specified");
+				veList.add(ve);
+			}
+			if (map.get("DestinationFile").getValue() == null
+					|| map.get("DestinationFile").getValue().toString().isEmpty()) {
+				ValidationError ve = new ValidationError();
+				ve.setTitle("Destination file is not specified");
+				veList.add(ve);
+			}
+		}
+		return veList.toArray(new ValidationError[] {});
+	}
+
+
 
 
 	/**** Setters and Getters method ****/
