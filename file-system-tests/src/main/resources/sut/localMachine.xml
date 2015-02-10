@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sut validators="">
+    <fileSystem>
+        <class>org.jsystem.file_system_so.LocalFileSystem</class>
+        <repositoryFolder>c:\</repositoryFolder>
+    </fileSystem>
+</sut>
