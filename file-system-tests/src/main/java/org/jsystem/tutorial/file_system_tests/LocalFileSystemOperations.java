@@ -18,6 +18,8 @@ import org.junit.Test;
  */
 public class LocalFileSystemOperations extends SystemTestCase4 {
 
+	private static final String REPOSITORY_FOLDER = "c:\\";
+	
 	private String tempFile, prefix, suffix;
 
 
@@ -26,6 +28,38 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 			"prefix", "suffix" }, returnParam = { "tempFile" })
 	public void createTempFile() throws IOException {
 		tempFile = File.createTempFile(prefix, suffix).getAbsolutePath();
+	}
+	
+	public void writeToFile() throws IOException {
+//		final Path filePath = Paths.get(file.getAbsolutePath());
+//		Files.write(filePath, content.getBytes(), append ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
+	}
+	
+	public void copyFile() throws IOException {
+//		Files.copy(Paths.get(sourceFile.getAbsolutePath()), Paths.get(destinationFile.getAbsolutePath()), copyOption);
+	}
+	
+	public void copyFileFromRepository() throws IOException {
+//		Path sourcePath = Paths.get(REPOSITORY_FOLDER + "/" + fileFromRepository);
+//		Path destinationPath = Paths.get(destinationFile.getAbsolutePath());
+//		if (copyOption != null) {
+//			Files.copy(sourcePath, destinationPath, copyOption);
+//		} else {
+//			Files.copy(sourcePath, destinationPath);
+//		}
+	}
+	
+	public void createMultipleFiles() throws Exception {
+//		for (FileAttributes attr : fileAttributesArr) {
+//			Path filePath = Paths.get(attr.getFolder() + "/" + attr.getName());
+//			Files.write(filePath, attr.getContent().getBytes(),
+//					StandardOpenOption.CREATE);
+//			File file = new File(filePath.toString());
+//			if (attr.isReadOnly()) {
+//				file.setReadOnly();
+//			}
+//		}
+
 	}
 
 	public String getPrefix() {
