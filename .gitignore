@@ -29,6 +29,8 @@ lib
 jsystem.properties
 testtimes.properties
 jsystem.properties.bu
+.run.properties
+jsystem0.log*
 runnerState.properties
 log
 myFile.txt
