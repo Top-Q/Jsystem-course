@@ -18,11 +18,7 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 
 	private String prefix, suffix;
 
-	/**
-	 * Create temporary file with the specified prefix and suffix. Return the
-	 * full path of the newly created file.
-	 * 
-	 */
+
 	@Test
 	public void createTempFile() throws IOException {
 		File.createTempFile(prefix, suffix);
