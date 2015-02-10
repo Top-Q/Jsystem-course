@@ -13,42 +13,5 @@
     <taskdef classname="com.aqua.anttask.jsystem.JSystemForTask" name="jsystemfor"/>
     <taskdef classname="com.aqua.anttask.jsystem.JSystemDataDrivenTask" name="jsystemdatadriven"/>
     <taskdef classname="com.aqua.anttask.jsystem.JSystemSetAntProperties" name="jsystemsetantproperties"/>
-    <target name="execute scenario">
-        <antcallback return="TempFile" target="t0"/>
-        <antcallback target="t1"/>
-        <antcallback target="t2"/>
-        <antcallback target="t3"/>
-    </target>
-    <target name="t0">
-        <jsystem showoutput="true">
-            <sysproperty key="jsystem.uuid" value="b0f20718-b3af-430f-8824-8ebd3c4b2afa"/>
-            <sysproperty key="jsystem.parent.uuid" value="${jsystem.parent.uuid}.${jsystem.uuid}"/>
-            <sysproperty key="jsystem.parent.name" value="${jsystem.parent.name}.${ant.project.name}"/>
-            <test name="org.jsystem.tutorial.file_system_tests.LocalFileSystemOperations.createTempFile"/>
-        </jsystem>
-    </target>
-    <target name="t1">
-        <jsystem showoutput="true">
-            <sysproperty key="jsystem.uuid" value="3b9ccf8b-b886-45b6-a525-fbd0eb8d8c5a"/>
-            <sysproperty key="jsystem.parent.uuid" value="${jsystem.parent.uuid}.${jsystem.uuid}"/>
-            <sysproperty key="jsystem.parent.name" value="${jsystem.parent.name}.${ant.project.name}"/>
-            <test name="org.jsystem.tutorial.file_system_tests.LocalFileSystemOperations.copyFileFromRepository"/>
-        </jsystem>
-    </target>
-    <target name="t2">
-        <jsystem showoutput="true">
-            <sysproperty key="jsystem.uuid" value="d9e97e02-57d8-4e2a-9255-34840786b5e1"/>
-            <sysproperty key="jsystem.parent.uuid" value="${jsystem.parent.uuid}.${jsystem.uuid}"/>
-            <sysproperty key="jsystem.parent.name" value="${jsystem.parent.name}.${ant.project.name}"/>
-            <test name="org.jsystem.tutorial.file_system_tests.LocalFileSystemOperations.createMultipleFiles"/>
-        </jsystem>
-    </target>
-    <target name="t3">
-        <jsystem showoutput="true">
-            <sysproperty key="jsystem.uuid" value="3c219696-0844-4a73-b4a1-c1820db42564"/>
-            <sysproperty key="jsystem.parent.uuid" value="${jsystem.parent.uuid}.${jsystem.uuid}"/>
-            <sysproperty key="jsystem.parent.name" value="${jsystem.parent.name}.${ant.project.name}"/>
-            <test name="org.jsystem.tutorial.file_system_tests.LocalFileSystemOperations.deleteFileOrDirectory"/>
-        </jsystem>
-    </target>
+    <target name="execute scenario"/>
 </project>
