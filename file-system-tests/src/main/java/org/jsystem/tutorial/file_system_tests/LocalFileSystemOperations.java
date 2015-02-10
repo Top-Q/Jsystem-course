@@ -29,9 +29,7 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 	@TestProperties(name = "Local - Create temp file with prefix '${prefix}' and suffix '${suffix}'", paramsInclude = {
 			"prefix", "suffix" }, returnParam = { "tempFile" })
 	public void createTempFile() throws IOException {
-		report.step("About to create temporary file");
 		tempFile = File.createTempFile(prefix, suffix).getAbsolutePath();
-		report.report("Created file with name: " + tempFile);
 	}
 
 	public String getPrefix() {
