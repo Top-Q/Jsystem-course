@@ -14,6 +14,7 @@ import java.util.List;
 
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
+import jsystem.framework.report.ReporterHelper;
 import jsystem.framework.scenario.Parameter;
 import jsystem.framework.scenario.UseProvider;
 import jsystem.framework.scenario.ValidationError;
@@ -53,7 +54,9 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 	@TestProperties(name = "Local - Create temp file with prefix '${prefix}' and suffix '${suffix}'", paramsInclude = {
 			"prefix", "suffix" }, returnParam = { "tempFile" })
 	public void createTempFile() throws IOException {
+		report.step("About to create temporary file");
 		tempFile = File.createTempFile(prefix, suffix).getAbsolutePath();
+		report.report("Created file with name: " + tempFile);
 	}
 	
 	/**
@@ -63,6 +66,8 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 	@Test
 	@TestProperties(name = "Local - Write content to file '${file}'", paramsInclude = { "file", "content", "append" })
 	public void writeToFile() throws IOException {
+		report.step("About to write content to file");
+		report.report("File content", content, true);
 		final Path filePath = Paths.get(file.getAbsolutePath());
 		Files.write(filePath, content.getBytes(), append ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
 
@@ -76,6 +81,7 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 	@TestProperties(name = "Local - Copy file '${sourceFile}' to '${destinationFile}'", paramsInclude = { "sourceFile",
 			"destinationFile", "copyOption" })
 	public void copyFile() throws IOException {
+		report.step("About to copy file");
 		Files.copy(Paths.get(sourceFile.getAbsolutePath()), Paths.get(destinationFile.getAbsolutePath()), copyOption);
 	}
 
@@ -84,6 +90,7 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 	@TestProperties(name = "Local - Copy file '${fileFromRepository}' to '${destinationFile}'", paramsInclude = {
 			"fileFromRepository", "destinationFile", "copyOption" })
 	public void copyFileFromRepository() throws IOException {
+		report.step("About to copy file from the repository");
 		Path sourcePath = Paths.get(REPOSITORY_FOLDER + "/" + fileFromRepository);
 		Path destinationPath = Paths.get(destinationFile.getAbsolutePath());
 		if (copyOption != null) {
@@ -99,17 +106,29 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 	@Test
 	@TestProperties(name = "Local - Create multiple files", paramsInclude = { "fileAttributesArr" })
 	public void createMultipleFiles() throws Exception {
-		for (FileAttributes attr : fileAttributesArr) {
-			Path filePath = Paths.get(attr.getFolder() + "/" + attr.getName());
-			Files.write(filePath, attr.getContent().getBytes(),
-					StandardOpenOption.CREATE);
-			File file = new File(filePath.toString());
-			if (attr.isReadOnly()) {
-				file.setReadOnly();
-			}
+		report.step("About to create multiple files");
+		if (null == fileAttributesArr || fileAttributesArr.length == 0) {
+			report.report("No file attributes were specified by user", 2);
+			return;
 		}
+		report.startLevel("Crating multiple files");
+		try {
+			for (FileAttributes attr : fileAttributesArr) {
+				Path filePath = Paths.get(attr.getFolder() + "/" + attr.getName());
+				report.report("About to create file " + filePath);
+				Files.write(filePath, attr.getContent().getBytes(), StandardOpenOption.CREATE);
+				File file = new File(filePath.toString());
+				if (attr.isReadOnly()) {
+					file.setReadOnly();
+				}
+				ReporterHelper.copyFileToReporterAndAddLink(report, file, attr.getName());
+			}
 
+		} finally {
+			report.stopLevel();
+		}
 	}
+
 	
 	
 	/**
