@@ -27,13 +27,19 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 
 	private static final String REPOSITORY_FOLDER = "c:\\";
 	
+	public enum FileOrFolder {
+		FILE, FOLDER
+	}
+	
+	private FileOrFolder fileOrFolder;
+	
 	private StandardCopyOption copyOption;
 	
 	private String tempFile, prefix, suffix, content, fileFromRepository;
 
 	private File file, sourceFile, destinationFile;
 
-	private boolean append;
+	private boolean append, emptyBeforeDeleting;
 
 	private FileAttributes[] fileAttributesArr;
 
@@ -99,6 +105,46 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 		}
 
 	}
+	
+	
+	/**
+	 * Delete file with specified name
+	 * 
+	 */
+	@Test
+	@TestProperties(name = "Local - Delete file or directory '${file}'", paramsInclude = { "file", "fileOrFolder",
+			"emptyBeforeDeleting" })
+	public void deleteFileOrDirectory() throws IOException {
+		report.step("About to delete file " + file);
+		if (null == file) {
+			report.report("File can't be null");
+			return;
+		}
+		if (!file.exists()) {
+			report.report("Specified file is not exist");
+			return;
+
+		}
+		switch (fileOrFolder) {
+		case FILE:
+			if (file.isDirectory()) {
+				report.report("Specified file is not directory");
+				return;
+			}
+
+			break;
+		case FOLDER:
+			if (file.isFile()) {
+				report.report("Specified file is not a file");
+				return;
+			}
+			break;
+
+		}
+		Files.delete(Paths.get(file.getAbsolutePath()));
+
+	}
+
 
 	/**** Setters and Getters method ****/
 
@@ -203,6 +249,21 @@ public class LocalFileSystemOperations extends SystemTestCase4 {
 		this.fileAttributesArr = fileAttributesArr;
 	}
 
+	public FileOrFolder getFileOrFolder() {
+		return fileOrFolder;
+	}
+
+	public void setFileOrFolder(FileOrFolder fileOrFolder) {
+		this.fileOrFolder = fileOrFolder;
+	}
+
+	public boolean isEmptyBeforeDeleting() {
+		return emptyBeforeDeleting;
+	}
+
+	public void setEmptyBeforeDeleting(boolean emptyBeforeDeleting) {
+		this.emptyBeforeDeleting = emptyBeforeDeleting;
+	}
 
 	/*************/
 
