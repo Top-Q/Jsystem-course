@@ -1,0 +1,8 @@
+<sut validators="">
+	<cliConnection>
+		<class>com.aqua.sysobj.conn.LinuxDefaultCliConnection</class>
+		<host>10.103.50.48</host>
+		<password>topq</password>
+		<user>topq</user>
+	</cliConnection>
+</sut>
